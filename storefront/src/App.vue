@@ -1,125 +1,148 @@
-<script setup>
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "@/components/HelloWorld.vue";
-</script>
-
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
+  <div id="wrapper">
+    <nav class="navbar is-dark">
+      <div class="navbar-brand">
+        <RouterLink :to="{ name: 'home' }" class="navbar-item">
+          <strong> Sole Store </strong>
+        </RouterLink>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+        <a
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbar-menu"
+          @click="flip"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+      <div
+        class="navbar-menu"
+        id="navbar-menu"
+        :class="{ 'is-active': showMobileMenu }"
+      >
+        <div class="navbar-start">
+          <div class="navbar-item">
+            <form method="get" action="/search">
+              <div class="field has-addons">
+                <div class="control">
+                  <input
+                    type="text"
+                    class="input"
+                    placeholder="What are you looking for?"
+                    name="query"
+                  />
+                </div>
 
-  <RouterView />
+                <div class="control">
+                  <button class="button is-success">
+                    <span class="icon">
+                      <i class="fas fa-search"></i>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="navbar-end">
+          <!-- TODO: Switch to appropriate routes -->
+          <RouterLink :to="{ name: about }" class="navbar-item">
+            Men
+          </RouterLink>
+          <RouterLink :to="{ name: about }" class="navbar-item">
+            Women
+          </RouterLink>
+
+          <div class="navbar-item">
+            <div class="buttons">
+              <!-- TODO: switch with login route -->
+              <RouterLink :to="{ name: about }" class="button is-light">
+                Log in
+              </RouterLink>
+              <!-- TODO: switch with cart route -->
+              <RouterLink :to="{ name: about }" class="button is-success">
+                <span class="icon"><i class="fas fa-shopping-cart"></i></span>
+                <span>Cart</span>
+              </RouterLink>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="section">
+      <RouterView />
+    </section>
+
+    <footer class="footer">
+      <p class="has-text-centered">Copyright (c) 2021</p>
+    </footer>
+  </div>
 </template>
 
-<style>
-@import "@/assets/base.css";
+<script>
+export default {
+  data() {
+    return {
+      showMobileMenu: false,
+      cart: {
+        items: [],
+      },
+    };
+  },
+  methods: {
+    flip() {
+      this.showMobileMenu = !this.showMobileMenu;
+    },
+  },
+};
+</script>
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+<style lang="css">
+@import "bulma/css/bulma.css";
 
-  font-weight: normal;
-}
-
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
+.lds-dual-ring {
   display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+  width: 80px;
+  height: 80px;
 }
 
-nav a:first-of-type {
-  border: 0;
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #ccc;
+  border-color: #ccc transparent #ccc transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
   }
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+  100% {
+    transform: rotate(360deg);
   }
+}
 
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.is-loading-bar {
+  height: 0;
+  overflow: hidden;
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+  &.is-loading {
+    height: 80px;
   }
 }
 </style>

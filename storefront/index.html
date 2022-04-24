@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Font Awesome icons -->
+  <script src="https://kit.fontawesome.com/25bbb7f1b7.js" crossorigin="anonymous"></script>
+  <!-- Social meta tags -->
+  <meta property="og:site_name" content="Generic e-Commerce, Inc.">
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="An e-commerce demo website" />
+  <meta property="og:description" content="Offering a catalogue of items for sale">
+  <!-- image should be 1200×630 pixels and an aspect ratio of 1.91:1 file size of less than 1MB -->
+  <meta property="og:image" content="{% static 'thumbnail.jpg' %}" />
+  <meta name="twitter:image:alt" content="Alt text for thumbnail image">
+  <meta property="og:url" content="https://" />
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- <meta property="fb:app_id" content="your_app_id" /> -->
+  <!-- <meta name="twitter:site" content="@website-username"> -->
+  <title>Sole Store</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>
