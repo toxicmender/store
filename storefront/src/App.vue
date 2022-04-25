@@ -80,7 +80,7 @@
     </section>
 
     <footer class="footer">
-      <p class="has-text-centered">Copyright (c) 2021</p>
+      <p class="has-text-centered">Copyright (c) 2022</p>
     </footer>
   </div>
 </template>
@@ -140,9 +140,5 @@ export default {
 
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-
-  &.is-loading {
-    height: 80px;
-  }
 }
 </style>
