@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import HomeView from "@/views/HomeView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,6 +8,19 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+      meta: {
+        title: "Home - Sole Store",
+        metaTags: [
+          {
+            name: "description",
+            content: "The home page of our Sole Store.",
+          },
+          {
+            property: "og:description",
+            content: "The home page of our Sole Store.",
+          },
+        ],
+      },
     },
     {
       path: "/about",
@@ -15,12 +28,38 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
+      component: () => import("@/views/AboutView.vue"),
+      meta: {
+        title: "About - Sole Store",
+        metaTags: [
+          {
+            name: "description",
+            content: "The about page of our Sole Store.",
+          },
+          {
+            property: "og:description",
+            content: "The about page of our Sole Store.",
+          },
+        ],
+      },
     },
     {
       path: "/:category_slug/:product_slug",
       name: "product",
-      component: () => import("../views/ProductView.vue"),
+      component: () => import("@/views/ProductView.vue"),
+      meta: {
+        title: "Product - Sole Store",
+        metaTags: [
+          {
+            name: "description",
+            content: "The Product page of our Sole Store.",
+          },
+          {
+            property: "og:description",
+            content: "The Product page of our Sole Store.",
+          },
+        ],
+      },
     },
   ],
 });
