@@ -1,9 +1,13 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
-import Service from "../services/apiClient";
+import { toast } from "bulma-toast";
+import Service from "@/services/apiClient";
+import { useCartStore } from "@/stores/cart";
 
+const cart = useCartStore();
 const route = useRoute();
+const quantity = ref(1);
 const product = ref([]);
 // 200 = success, 301 = unchanged
 async function getProduct(category_slug, product_slug) {
@@ -16,12 +20,33 @@ async function getProduct(category_slug, product_slug) {
     }
   );
 }
-console.log(`Products: ${product.value}`);
+
+function addToCart() {
+  if (isNaN(quantity.value) || quantity.value < 1) {
+    quantity.value = 1;
+  }
+  const item = {
+    product: product,
+    quantity: quantity,
+  };
+  cart.addItem(item);
+  toast({
+    message: "The product was added to the cart",
+    type: "is-success",
+    dismissible: true,
+    pauseOnHover: true,
+    duration: 2000,
+    position: "bottom-right",
+  });
+}
 
 onMounted(() => {
   getProduct(route.params.category_slug, route.params.product_slug);
 });
 </script>
+
+<!-- ------------------------------ Separator ----------------------------- -->
+
 <template>
   <div class="page-product">
     <div class="columns is-multiline">
@@ -46,7 +71,7 @@ onMounted(() => {
           </div>
 
           <div class="control">
-            <a class="button is-dark">Add to cart</a>
+            <a class="button is-dark" @click="addToCart">Add to cart</a>
           </div>
         </div>
       </div>

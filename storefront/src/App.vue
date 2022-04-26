@@ -1,3 +1,24 @@
+<script setup>
+import { onBeforeMount, ref, computed } from "vue";
+import { useCartStore } from "@/stores/cart";
+
+const cart = useCartStore();
+const showMobileMenu = ref(false);
+
+const cartSize = computed(() => {
+  return cart.rawItems.length;
+});
+
+function flip() {
+  showMobileMenu.value = !showMobileMenu.value;
+}
+onBeforeMount(() => {
+  cart.initCart();
+});
+</script>
+
+<!-- ------------------------------ Separator ----------------------------- -->
+
 <template>
   <div id="wrapper">
     <nav class="navbar is-dark">
@@ -67,7 +88,7 @@
               <!-- TODO: switch with cart route -->
               <RouterLink :to="{ name: about }" class="button is-success">
                 <span class="icon"><i class="fas fa-shopping-cart"></i></span>
-                <span>Cart</span>
+                <span>Cart ({{ cartSize }}) </span>
               </RouterLink>
             </div>
           </div>
@@ -85,60 +106,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      showMobileMenu: false,
-      cart: {
-        items: [],
-      },
-    };
-  },
-  methods: {
-    flip() {
-      this.showMobileMenu = !this.showMobileMenu;
-    },
-  },
-};
-</script>
+<!-- ------------------------------ Separator ----------------------------- -->
 
 <style lang="css">
 @import "bulma/css/bulma.css";
-
-.lds-dual-ring {
-  display: inline-block;
-  width: 80px;
-  height: 80px;
-}
-
-.lds-dual-ring:after {
-  content: " ";
-  display: block;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border-radius: 50%;
-  border: 6px solid #ccc;
-  border-color: #ccc transparent #ccc transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
-}
-
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.is-loading-bar {
-  height: 0;
-  overflow: hidden;
-
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-}
 </style>
