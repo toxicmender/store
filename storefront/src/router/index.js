@@ -9,7 +9,7 @@ const router = createRouter({
       name: "home",
       component: HomeView,
       meta: {
-        title: "Home - Sole Store",
+        title: "Home",
         metaTags: [
           {
             name: "description",
@@ -30,7 +30,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import("@/views/AboutView.vue"),
       meta: {
-        title: "About - Sole Store",
+        title: "About",
         metaTags: [
           {
             name: "description",
@@ -48,7 +48,7 @@ const router = createRouter({
       name: "product",
       component: () => import("@/views/ProductView.vue"),
       meta: {
-        title: "Product - Sole Store",
+        title: "Product",
         metaTags: [
           {
             name: "description",
