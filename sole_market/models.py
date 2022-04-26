@@ -1,6 +1,7 @@
 from io import BytesIO
 from django.db import models
 from django.utils.translation import gettext_lazy as gtl
+from django.utils.text import slugify
 from django.core.files import File
 from PIL import Image
 
@@ -32,6 +33,10 @@ class Category(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
+
     def get_absolute_url(self):
         return f"/{self.slug}/"
 
@@ -59,8 +64,8 @@ class Product(models.Model):
     price = models.DecimalField(
         max_digits=7, decimal_places=2, blank=False, null=False
     )
-    image = models.ImageField(upload_to="uploads/", blank=True, null=True)
-    thumbnail = models.ImageField(upload_to="uploads/", blank=True, null=True)
+    image = models.ImageField(upload_to="img_uploads/", blank=True, null=True)
+    thumbnail = models.ImageField(upload_to="thumbnail_uploads/", blank=True, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -69,27 +74,31 @@ class Product(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
+
     def get_absolute_url(self):
         return f"/{self.category.slug}/{self.slug}/"
 
     def get_image(self):
         if self.image:
-            return f"{origins}/{self.image.url}"
+            return f"{origins}{self.image.url}"
 
     def get_thumbnail(self):
         if self.thumbnail:
-            return f"{origins}/{self.thumbnail.url}"
+            return f"{origins}{self.thumbnail.url}"
         else:
             if self.image:
                 self.thumbnail = self.make_thumbnail(self.image)
                 self.save()
-                return f"{origins}/{self.thumbnail.url}"
+                return f"{origins}{self.thumbnail.url}"
             else:
                 return ""
 
     def make_thumbnail(self, image, size=(300, 300)):
         img = Image.open(image)
-        img.convert("RGB")
+        img = img.convert("RGB")
         img.thumbnail(size)
 
         thumbs_io = BytesIO()
