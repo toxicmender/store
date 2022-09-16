@@ -27,7 +27,7 @@ itypes==1.2.0
 Jinja2==3.1.1
 MarkupSafe==2.1.1
 mypy-extensions==0.4.3
-oauthlib==3.2.0
+oauthlib==3.2.1
 packaging==21.3
 pathspec==0.9.0
 Pillow==9.1.1
