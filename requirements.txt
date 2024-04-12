@@ -20,7 +20,7 @@ djangorestframework-simplejwt==4.8.0
 djoser==2.1.0
 factory-boy==3.2.1
 Faker==13.4.0
-idna==3.3
+idna==3.7
 inflection==0.5.1
 iniconfig==1.1.1
 itypes==1.2.0
